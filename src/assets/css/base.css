@@ -1,0 +1,55 @@
+@import './normalize.css';
+x
+/*:root （伪类）-> 获取根元素root（在本项目里是html）,即提前定义了一些变量,--表示变量*/
+:root{
+    --color-text:#666;    /*定义文字颜色*/
+    --color-high-text:#ff5777;   /*定义高亮文字颜色*/
+    --color-tint:#ff8198;       /*定义类似导航栏的背景颜色*/
+    --color-background:#fff;
+    --font-size:14px;
+    --line-height:1.5;
+}
+
+/*  *是全部的意思，但是权重最小，常用来设置默认的样式*/
+*,
+*::before,
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:"Helvetica Neue",Helvetica,"PingFang SC","Hiradino Sans GB","Microsoft Yahei","微软雅黑",Arial,sans-serif;
+    user-select:none;       /*禁止用户鼠标在页面上选择文字图片等*/
+    -webkit-tap-highlight-color: transparent;       /*webkit是苹果浏览器引擎，tap点击，highlight高亮，color颜色，颜色由数值调节*/
+    background: var(--color-background);
+    color:var(--color-text);
+    width:100vw;
+}
+
+a{
+    color:var(--color-text);
+    text-decoration: none;
+}
+
+/*清除浮动，原理是在.claear fix内部添加一个伪元素after，他会跟在父元素内的最后位置，content设为‘’，并将其改为块级显示（伪元素是行级元素），清除浮动*/
+.clear fix::after{
+    clear:both;
+    content:'';
+    display:block;
+    width:0;
+    height:0;
+    visibility: hidden;
+}
+
+.clear-fix{
+    zoom:1;
+}
+
+.left{
+    float:left;
+}
+.right{
+    float:right
+}
