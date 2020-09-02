@@ -1,44 +1,41 @@
 <template>
-  <div id="hy-swiper">
-    <div class="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
-      <slot></slot>
-    </div>
-    <slot name="indicator">
-    </slot>
-    <div class="indicator">
-      <slot name="indicator" v-if="showIndicator && slideCount>1">
-        <div v-for="(item, index) in slideCount" class="indi-item" :class="{active: index === currentIndex-1}" :key="index"></div>
+    <div id="hy-swiper">
+      <div class="swiper" @touchstart="touchStart" @touchmove="touchMove" @touchend="touchEnd">
+        <slot></slot>
+      </div>
+      <slot name="indicator">
       </slot>
+      <div class="indicator">
+        <slot name="indicator" v-if="showIndicator && slideCount>1">
+          <div v-for="(item, index) in slideCount" class="indi-item" :class="{active: index === currentIndex-1}" :key="index"></div>
+        </slot>
+      </div>
     </div>
-  </div>
 </template>
+
 <script>
-  export default {
-    name: "Swiper",
+	export default {
+		name: "Swiper",
     props: {
-      // 多久轮播一次
       interval: {
-        type: Number,
+		    type: Number,
         default: 3000
       },
-      // 延迟多久开始轮播
       animDuration: {
-        type: Number,
-        default: 500
+		    type: Number,
+        default: 300
       },
-      // 手动滚动轮播图的时候会移除定时器，这个定义了滚的比例，在这里意思是滚到25%的时候切换到下一张，且移除定时器
       moveRatio: {
         type: Number,
         default: 0.25
       },
-      // 指示器是否显示，这里的指示器是指那个底部小圆点
       showIndicator: {
         type: Boolean,
         default: true
       }
     },
     data: function () {
-      return {
+		  return {
         slideCount: 0, // 元素个数
         totalWidth: 0, // swiper的宽度
         swiperStyle: {}, // swiper样式
@@ -53,16 +50,16 @@
 
         // 2.开启定时器
         this.startTimer();
-      }, 100)
+      }, 3000)
     },
     methods: {
-      /**
+		  /**
        * 定时器操作
        */
       startTimer: function () {
-        this.playTimer = window.setInterval(() => {
-          this.currentIndex++;
-          this.scrollContent(-this.currentIndex * this.totalWidth);
+		    this.playTimer = window.setInterval(() => {
+		      this.currentIndex++;
+		      this.scrollContent(-this.currentIndex * this.totalWidth);
         }, this.interval)
       },
       stopTimer: function () {
@@ -102,7 +99,6 @@
             this.setTransform(-this.currentIndex * this.totalWidth);
           }
 
-
           // 2.结束移动后的回调
           this.$emit('transitionEnd', this.currentIndex-1);
         }, this.animDuration)
@@ -120,7 +116,7 @@
       /**
        * 操作DOM, 在DOM前后添加Slide
        */
-      handleDom: function () {
+		  handleDom: function () {
         // 1.获取要操作的元素
         let swiperEl = document.querySelector('.swiper');
         let slidesEls = swiperEl.getElementsByClassName('slide');
@@ -143,7 +139,7 @@
       },
 
       /**
-       *拖动事件的处理
+       * 拖动事件的处理
        */
       touchStart: function (e) {
         // 1.如果正在滚动, 不可以拖动
@@ -151,6 +147,7 @@
 
         // 2.停止定时器
         this.stopTimer();
+
         // 3.保存开始滚动的位置
         this.startX = e.touches[0].pageX;
       },
@@ -181,6 +178,7 @@
 
         // 3.移动到正确的位置
         this.scrollContent(-this.currentIndex * this.totalWidth);
+
         // 4.移动完成后重新开启定时器
         this.startTimer();
       },
@@ -203,14 +201,13 @@
         // 2.修改index和位置
         this.currentIndex += num;
         this.scrollContent(-this.currentIndex * this.totalWidth);
+
         // 3.添加定时器
         this.startTimer();
       }
     }
-  }
+	}
 </script>
-
-
 
 <style scoped>
   #hy-swiper {

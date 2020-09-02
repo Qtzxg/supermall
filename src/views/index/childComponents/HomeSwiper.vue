@@ -1,6 +1,6 @@
 <template>
   <div>
-    <swiper>
+    <swiper >
     <swiper-item  v-for="item in banners">
       <!--因为要用变量（item）里的属性，所以要动态绑定-->
       <a :href="item.link">
@@ -18,7 +18,7 @@
         name: "HomeSwiper",
       props:{
           banners:{
-            type:String,
+            type:Array,
             default() {
               return [];
             }
@@ -32,5 +32,8 @@
 </script>
 
 <style scoped>
+    /*.swiper{*/
+    /*  margin-top: 44px;*/
 
+    /*}*/
 </style>

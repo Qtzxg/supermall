@@ -1,7 +1,7 @@
 <template>
-  <div id="app">
+  <div id="app" class="app-style">
     <router-view></router-view>
-      <MainTabbar></MainTabbar>
+      <MainTabbar class="tabbar"></MainTabbar>
   </div>
 </template>
 
@@ -17,5 +17,11 @@
 
 <style>
 @import "./assets/css/base.css";
+  .app-style{
+    padding-bottom: 49px;
+  }
+.tabbar{
+  z-index:9;
+}
 </style>
 
